@@ -1,0 +1,38 @@
+.buttons .prevButton {
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+  color: var(--cool-gray);
+  cursor: pointer;
+
+  position: absolute;
+  bottom: 32px;
+  left: 50px;
+}
+
+.buttons .nextButton {
+  background-color: var(--marine-blue);
+  border: solid 1px var(--marine-blue);
+  border-radius: 8px;
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+
+  position: absolute;
+  bottom: 15px;
+  right: 50px;
+}
+
+.buttons .nextButton:hover,
+.buttons .nextButton:active {
+  background-color: #0d56af;
+  border-color: #0d56af;
+}
+
+.buttons .prevButton:hover,
+.buttons .prevButton:active {
+  color: var(--marine-blue);
+}

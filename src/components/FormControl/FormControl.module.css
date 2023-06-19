@@ -3,11 +3,22 @@
   flex-direction: column;
 }
 
-.formControl label {
+.formControl .labelAndSpanAlert {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.formControl .labelAndSpanAlert label {
   color: var(--marine-blue);
   font-size: 0.875rem;
   font-weight: 500;
-  margin-bottom: 0.5rem;
+}
+
+.formControl .labelAndSpanAlert span {
+  color: var(--strawberry-red);
+  font-size: 0.875rem;
+  font-weight: bold;
 }
 
 .formControl input {
@@ -26,4 +37,9 @@
 
 .formControl input:focus {
   outline: solid 1px var(--purplish-blue);
+}
+
+.formControl .invalid {
+  border: solid 1px var(--strawberry-red);
+  outline: none !important;
 }
