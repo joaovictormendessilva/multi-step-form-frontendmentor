@@ -26,6 +26,26 @@
   right: 50px;
 }
 
+.buttons .confirmButton {
+  background-color: var(--purplish-blue);
+  border: solid 1px var(--purplish-blue);
+  border-radius: 8px;
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+
+  position: absolute;
+  bottom: 15px;
+  right: 50px;
+}
+
+.buttons .confirmButton:hover {
+  background-color: #827cff;
+  border: solid 1px #827cff;
+}
+
 .buttons .nextButton:hover,
 .buttons .nextButton:active {
   background-color: #0d56af;

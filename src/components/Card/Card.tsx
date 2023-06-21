@@ -6,12 +6,12 @@ interface CardProps {
   labelHtmlFor: string;
   label: string;
   value: string;
-  checked: string;
+  checked: boolean;
   removeControlledMessage: () => void;
   monthlyPrice: number;
   yearlyPrice: number;
   image: string;
-  monthlyOrYearly: boolean;
+  monthlyOrYearly: string;
 }
 
 export function Card({ ...Card }: CardProps) {
@@ -22,7 +22,7 @@ export function Card({ ...Card }: CardProps) {
         type="radio"
         name="radio"
         value={Card.value}
-        checked={Card.checked === Card.value}
+        defaultChecked={Card.checked}
         onChange={Card.removeControlledMessage}
       />
 
@@ -31,12 +31,12 @@ export function Card({ ...Card }: CardProps) {
 
         <div>
           <label htmlFor={Card.labelHtmlFor}>{Card.label}</label>
-          {Card.monthlyOrYearly ? (
+          {Card.monthlyOrYearly === "Yearly" ? (
             <p>${Card.yearlyPrice}/yr</p>
           ) : (
             <p>${Card.monthlyPrice}/mo</p>
           )}
-          {Card.monthlyOrYearly && (
+          {Card.monthlyOrYearly === "Yearly" && (
             <p className={styles.monthsFreeLabel}>2 months free</p>
           )}
         </div>

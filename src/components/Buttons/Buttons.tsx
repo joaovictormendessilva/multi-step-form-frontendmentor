@@ -23,7 +23,12 @@ export function Buttons({
         </button>
       )}
 
-      <button className={styles.nextButton} onClick={onClick}>
+      <button
+        className={
+          value === "Next Step" ? styles.nextButton : styles.confirmButton
+        }
+        onClick={onClick}
+      >
         {value}
       </button>
     </div>

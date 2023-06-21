@@ -1,5 +1,5 @@
 // React
-import { useState, ChangeEvent, useContext, FormEvent } from "react";
+import { ChangeEvent, useContext, FormEvent } from "react";
 
 // CSS
 import styles from "./StepTwo.module.css";
@@ -20,33 +20,45 @@ import { AppContext } from "../../App";
 interface StepTwoProps {
   setStepOne: React.Dispatch<React.SetStateAction<boolean>>;
   setStepTwo: React.Dispatch<React.SetStateAction<boolean>>;
+  setStepThree: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function StepTwo({ setStepOne, setStepTwo }: StepTwoProps) {
-  const [plan, setPlan] = useState<string>("Arcade");
-  const [monthlyOrYearly, setMonthlyOrYearly] = useState<boolean>(false);
-
+export function StepTwo({
+  setStepOne,
+  setStepTwo,
+  setStepThree,
+}: StepTwoProps) {
   const appContext = useContext(AppContext);
   if (!appContext) return;
-  const { setStepTwoFields } = appContext;
+  const {
+    setStepTwoFields,
+    selectedPlan,
+    setSelectedPlan,
+    monthlyOrYearly,
+    setMonthlyOrYearly,
+  } = appContext;
 
-  const handleChangeField = (e: ChangeEvent<HTMLInputElement>) => {
-    setMonthlyOrYearly(e.target.checked);
+  const handleChangeMonthlyOrYearly = (e: ChangeEvent<HTMLInputElement>) => {
+    const monthlyOrYearly = e.target.checked ? "Yearly" : "Monthly";
+
+    setMonthlyOrYearly(monthlyOrYearly);
   };
 
   const handleChangePlan = (e: ChangeEvent<HTMLInputElement>) => {
-    setPlan(e.target.value);
+    setSelectedPlan(e.target.value);
   };
 
   const handleCheckFields = (e: FormEvent) => {
     e.preventDefault();
 
     const values = {
-      plan: plan,
+      plan: selectedPlan,
       monthlyOrYearly: monthlyOrYearly,
     };
 
     setStepTwoFields(values);
+    setStepTwo(false);
+    setStepThree(true);
   };
 
   const handleBackPage = () => {
@@ -69,7 +81,7 @@ export function StepTwo({ setStepOne, setStepTwo }: StepTwoProps) {
           labelHtmlFor="arcade"
           label="Arcade"
           value="Arcade"
-          checked={plan}
+          checked={selectedPlan === "Arcade"}
           removeControlledMessage={() => {}}
           monthlyPrice={9}
           yearlyPrice={90}
@@ -83,7 +95,7 @@ export function StepTwo({ setStepOne, setStepTwo }: StepTwoProps) {
           labelHtmlFor="advanced"
           label="Advanced"
           value="Advanced"
-          checked={plan}
+          checked={selectedPlan === "Advanced"}
           removeControlledMessage={() => {}}
           monthlyPrice={12}
           yearlyPrice={120}
@@ -97,7 +109,7 @@ export function StepTwo({ setStepOne, setStepTwo }: StepTwoProps) {
           labelHtmlFor="pro"
           label="Pro"
           value="Pro"
-          checked={plan}
+          checked={selectedPlan === "Pro"}
           removeControlledMessage={() => {}}
           monthlyPrice={15}
           yearlyPrice={150}
@@ -112,7 +124,8 @@ export function StepTwo({ setStepOne, setStepTwo }: StepTwoProps) {
             type="checkbox"
             id="monthlyOrYearly"
             name="monthlyOrYearly"
-            onChange={handleChangeField}
+            onChange={handleChangeMonthlyOrYearly}
+            defaultChecked={monthlyOrYearly === "Monthly" ? false : true}
           />
           <span className={`${styles.slider} ${styles.round}`}></span>
         </label>

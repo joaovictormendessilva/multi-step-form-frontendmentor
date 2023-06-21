@@ -1,4 +1,4 @@
 export interface StepTwoFields {
   plan: string;
-  monthlyOrYearly: boolean;
+  monthlyOrYearly: string;
 }
