@@ -16,7 +16,12 @@ export function Container() {
 
   return (
     <div className={styles.container}>
-      <AsideSteps />
+      <AsideSteps
+        stepOne={stepOne}
+        stepTwo={stepTwo}
+        stepThree={stepThree}
+        stepFour={stepFour}
+      />
 
       <main>
         <form>

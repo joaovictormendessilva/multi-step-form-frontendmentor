@@ -35,3 +35,8 @@
   border: solid 1px var(--white);
   color: var(--white);
 }
+
+.asideSteps .activeStep {
+  background-color: var(--pastel-blue);
+  border-color: var(--pastel-blue);
+}
