@@ -24,10 +24,13 @@ interface IAppContext {
   stepThreeFields: StepThreeFields[];
   order: Order;
   setOrder: React.Dispatch<React.SetStateAction<Order>>;
+  showLightBox: boolean;
+  setShowLightBox: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 import React, { useState, createContext } from "react";
 import { Order } from "./interfaces/Order";
+import { LightBox } from "./components/LightBox/LightBox";
 
 export const AppContext = createContext<IAppContext | null>(null);
 
@@ -47,6 +50,8 @@ export function App() {
 
   const [order, setOrder] = useState<Order>({} as Order);
 
+  const [showLightBox, setShowLightBox] = useState<boolean>(false);
+
   return (
     <div className={styles.app}>
       <AppContext.Provider
@@ -62,9 +67,14 @@ export function App() {
           stepThreeFields,
           order,
           setOrder,
+          showLightBox,
+          setShowLightBox,
         }}
       >
         <Container />
+        {showLightBox && (
+          <LightBox order={order} setShowLightBox={setShowLightBox} />
+        )}
       </AppContext.Provider>
     </div>
   );

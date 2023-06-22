@@ -1,0 +1,66 @@
+.lightBox {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #0000006e;
+  z-index: 9999;
+}
+
+.lightBox .lightBoxContent {
+  margin: 3% auto;
+  width: 380px;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: var(--white);
+}
+
+.lightBox .lightBoxContent .closeButton {
+  text-align: right;
+}
+
+.lightBox .lightBoxContent .closeButton button {
+  background-color: transparent;
+  color: var(--marine-blue);
+  font-weight: bold;
+  font-size: 1.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.lightBox .lightBoxContent .closeButton button:hover {
+  color: var(--purplish-blue);
+}
+.lightBox .lightBoxContent h2,
+.lightBox .lightBoxContent h4 {
+  color: var(--marine-blue);
+  margin-bottom: 0.5rem;
+}
+
+.lightBox .lightBoxContent h4 {
+  font-size: 1.2rem;
+}
+
+.lightBox .lightBoxContent ul {
+  list-style: none;
+}
+
+.lightBox .lightBoxContent ul li {
+  margin-bottom: 0.5rem;
+}
+
+.lightBox .lightBoxContent ul li:last-child {
+  margin-bottom: 1rem;
+}
+
+.lightBox .lightBoxContent ul li b {
+  font-size: 0.875rem;
+}
+
+.lightBox .lightBoxContent .totalContainer {
+  margin-top: 1rem;
+  text-align: right;
+}
+
+.lightBox .lightBoxContent .totalContainer span {
+  font-size: 0.875rem;
+}
