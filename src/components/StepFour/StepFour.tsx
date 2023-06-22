@@ -25,6 +25,21 @@ export function StepFour({
   if (!appContext) return;
   const { stepTwoFields, stepThreeFields } = appContext;
 
+  const resultSumServices: number =
+    stepTwoFields.monthlyOrYearly === "Monthly"
+      ? stepThreeFields
+          .filter((service) => service.checked === true)
+          .reduce((total, valor) => total + valor.monthlyPrice, 0) +
+        stepTwoFields.planPrice!
+      : stepThreeFields
+          .filter((service) => service.checked === true)
+          .reduce((total, valor) => total + valor.yearlyPrice, 0) +
+        stepTwoFields.planPrice!;
+
+  const anyChosenService = stepThreeFields.filter(
+    (service) => service.checked === true
+  );
+
   const handleBackPage = () => {
     setStepThree(true);
     setStepFour(false);
@@ -51,57 +66,49 @@ export function StepFour({
             <button onClick={handleBackToStepTwo}>Change</button>
           </div>
           <div>
-            <b>$9/mo</b>
+            <b>
+              ${stepTwoFields.planPrice}
+              {stepTwoFields.monthlyOrYearly === "Monthly" ? "/mo" : "/yr"}
+            </b>
           </div>
         </div>
-        <div className={styles.divider}></div>
+
+        {anyChosenService.length > 0 && <div className={styles.divider}></div>}
+
         <div className={styles.listOfServices}>
           <ul>
-            <li>
-              {stepThreeFields.onlineService && (
-                <div className={styles.serviceInfo}>
-                  <span className={styles.serviceTitle}>Online service</span>
-                  <span className={styles.servicePrice}>
-                    {stepTwoFields.monthlyOrYearly === "Monthly"
-                      ? "+1/mo"
-                      : "+10/yr"}
-                  </span>
-                </div>
-              )}
-            </li>
-            <li>
-              {stepThreeFields.largerStorage && (
-                <div className={styles.serviceInfo}>
-                  <span className={styles.serviceTitle}>Larger storage</span>
-                  <span className={styles.servicePrice}>
-                    {stepTwoFields.monthlyOrYearly === "Monthly"
-                      ? "+2/mo"
-                      : "+20/yr"}
-                  </span>
-                </div>
-              )}
-            </li>
-            <li>
-              {stepThreeFields.customizableProfile && (
-                <div className={styles.serviceInfo}>
-                  <span className={styles.serviceTitle}>
-                    Customizable profile
-                  </span>
-                  <span className={styles.servicePrice}>
-                    {stepTwoFields.monthlyOrYearly === "Monthly"
-                      ? "+2/mo"
-                      : "+20/yr"}
-                  </span>
-                </div>
-              )}
-            </li>
+            {stepThreeFields.map(
+              (service) =>
+                service.checked === true && (
+                  <li key={service.id}>
+                    <div className={styles.serviceInfo}>
+                      <span className={styles.serviceTitle}>
+                        {service.label}
+                      </span>
+                      <span className={styles.servicePrice}>
+                        {stepTwoFields.monthlyOrYearly === "Monthly"
+                          ? `${service.monthlyPrice}/mo`
+                          : `${service.yearlyPrice}/yr`}
+                      </span>
+                    </div>
+                  </li>
+                )
+            )}
           </ul>
         </div>
       </div>
 
       <div className={styles.totalPerMonth}>
-        <span className={styles.totalPerMonthTitle}>Total (per month)</span>
-        <h4 className={styles.totalPerMonthTotal}>+$12/mo</h4>
+        <span className={styles.totalPerMonthTitle}>
+          Total ({stepTwoFields.monthlyOrYearly ? "per month" : "per year"})
+        </span>
+        <h4 className={styles.totalPerMonthTotal}>
+          +$
+          {`
+            ${resultSumServices}
+            ${stepTwoFields.monthlyOrYearly === "Monthly" ? "/mo" : "/yr"}
+          `}
+        </h4>
       </div>
 
       <Buttons value="Confirm" show={true} onHandleBackPage={handleBackPage} />

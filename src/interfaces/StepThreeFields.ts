@@ -1,5 +1,10 @@
 export interface StepThreeFields {
-  onlineService?: boolean;
-  largerStorage?: boolean;
-  customizableProfile?: boolean;
+  id: number;
+  inputId: string;
+  inputName: string;
+  label: string;
+  paragraph: string;
+  monthlyPrice: number;
+  yearlyPrice: number;
+  checked: boolean;
 }

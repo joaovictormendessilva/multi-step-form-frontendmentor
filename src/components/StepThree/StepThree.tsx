@@ -17,14 +17,14 @@ export function StepThree({
 }: StepThreeProps) {
   const appContext = useContext(AppContext);
   if (!appContext) return;
-  const { monthlyOrYearly, stepThreeFields, setStepThreeFields } = appContext;
+  const { monthlyOrYearly, stepThreeFields } = appContext;
 
   const handleChangeServices = (e: ChangeEvent<HTMLInputElement>) => {
-    setStepThreeFields((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.checked,
-    }));
-    console.log(stepThreeFields);
+    stepThreeFields.map((service) => {
+      if (e.target.name === service.inputName) {
+        service.checked = !service.checked;
+      }
+    });
   };
 
   const handleBackPage = () => {
@@ -44,39 +44,22 @@ export function StepThree({
         paragraph="Add-ons gelp enhance your gaming experience."
       />
 
-      <Service
-        inputId="onlineService"
-        inputName="onlineService"
-        label="Online service"
-        paragraph="Access to multiplayer games"
-        monthlyPrice={1}
-        yearlyPrice={10}
-        monthlyOrYearly={monthlyOrYearly}
-        onHandleChangeServices={handleChangeServices}
-        checked={stepThreeFields.onlineService === true}
-      />
-      <Service
-        inputId="largerStorage"
-        inputName="largerStorage"
-        label="Larger storage"
-        paragraph="Extra 1TB of cloud save"
-        monthlyPrice={2}
-        yearlyPrice={20}
-        monthlyOrYearly={monthlyOrYearly}
-        onHandleChangeServices={handleChangeServices}
-        checked={stepThreeFields.largerStorage === true}
-      />
-      <Service
-        inputId="customizableProfile"
-        inputName="customizableProfile"
-        label="Customizable Profile"
-        paragraph="Custom theme on your profile"
-        monthlyPrice={2}
-        yearlyPrice={20}
-        monthlyOrYearly={monthlyOrYearly}
-        onHandleChangeServices={handleChangeServices}
-        checked={stepThreeFields.customizableProfile === true}
-      />
+      {stepThreeFields.map((service) => {
+        return (
+          <Service
+            key={service.id}
+            inputId={service.inputId}
+            inputName={service.inputName}
+            label={service.label}
+            paragraph={service.paragraph}
+            monthlyPrice={service.monthlyPrice}
+            yearlyPrice={service.yearlyPrice}
+            monthlyOrYearly={monthlyOrYearly}
+            onHandleChangeServices={handleChangeServices}
+            checked={service.checked === true}
+          />
+        );
+      })}
 
       <Buttons
         show={true}

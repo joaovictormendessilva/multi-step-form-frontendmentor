@@ -9,13 +9,10 @@ import { Header } from "../Header/Header";
 import { Card } from "../Card/Card";
 import { Buttons } from "../Buttons/Buttons";
 
-// Images
-import arcadeIcon from "../../assets/icon-arcade.svg";
-import advancedIcon from "../../assets/icon-advanced.svg";
-import proIcon from "../../assets/icon-pro.svg";
-
 // Context
 import { AppContext } from "../../App";
+import { cardData } from "../../data/cardData";
+import { StepTwoFields } from "../../interfaces/StepTwoFields";
 
 interface StepTwoProps {
   setStepOne: React.Dispatch<React.SetStateAction<boolean>>;
@@ -51,9 +48,15 @@ export function StepTwo({
   const handleCheckFields = (e: FormEvent) => {
     e.preventDefault();
 
-    const values = {
+    const pricePlan =
+      monthlyOrYearly === "Monthly"
+        ? cardData.find((card) => card.label === selectedPlan)?.monthlyPrice
+        : cardData.find((card) => card.label === selectedPlan)?.yearlyPrice;
+
+    const values: StepTwoFields = {
       plan: selectedPlan,
       monthlyOrYearly: monthlyOrYearly,
+      planPrice: pricePlan,
     };
 
     setStepTwoFields(values);
@@ -74,47 +77,22 @@ export function StepTwo({
       />
 
       <div className={styles.cardGroup} onChange={handleChangePlan}>
-        <Card
-          idInput="arcade"
-          image={arcadeIcon}
-          imageAlt="Ícone do plano arcade"
-          labelHtmlFor="arcade"
-          label="Arcade"
-          value="Arcade"
-          checked={selectedPlan === "Arcade"}
-          removeControlledMessage={() => {}}
-          monthlyPrice={9}
-          yearlyPrice={90}
-          monthlyOrYearly={monthlyOrYearly}
-        />
-
-        <Card
-          idInput="advanced"
-          image={advancedIcon}
-          imageAlt="Ícone do plano advanced"
-          labelHtmlFor="advanced"
-          label="Advanced"
-          value="Advanced"
-          checked={selectedPlan === "Advanced"}
-          removeControlledMessage={() => {}}
-          monthlyPrice={12}
-          yearlyPrice={120}
-          monthlyOrYearly={monthlyOrYearly}
-        />
-
-        <Card
-          idInput="pro"
-          image={proIcon}
-          imageAlt="Ícone do plano pro"
-          labelHtmlFor="pro"
-          label="Pro"
-          value="Pro"
-          checked={selectedPlan === "Pro"}
-          removeControlledMessage={() => {}}
-          monthlyPrice={15}
-          yearlyPrice={150}
-          monthlyOrYearly={monthlyOrYearly}
-        />
+        {cardData.map((card) => (
+          <Card
+            key={card.id}
+            idInput={card.idInput}
+            image={card.image}
+            imageAlt={card.imageAlt}
+            label={card.label}
+            checked={selectedPlan === card.label}
+            labelHtmlFor={card.labelHtmlFor}
+            monthlyOrYearly={monthlyOrYearly}
+            removeControlledMessage={() => {}}
+            value={card.value}
+            monthlyPrice={card.monthlyPrice}
+            yearlyPrice={card.yearlyPrice}
+          />
+        ))}
       </div>
 
       <div className={styles.plans}>
