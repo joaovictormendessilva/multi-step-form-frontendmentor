@@ -1,0 +1,31 @@
+// CSS
+import styles from "./ThankYouStep.module.css";
+
+// Images
+import thankYouIcon from "../../assets/icon-thank-you.svg";
+
+import { useContext } from "react";
+
+// Context
+import { AppContext } from "../../App";
+
+export function ThankYouStep() {
+  const appContext = useContext(AppContext);
+  if (!appContext) return;
+  const { order } = appContext;
+  console.log(order);
+
+  return (
+    <div className={styles.thankYouStep}>
+      <div className={styles.content}>
+        <img src={thankYouIcon} alt="Ícone de confirmado" />
+        <h2>Thank you!</h2>
+        <p>
+          Thanks for confirming your subscription! We hope you have fun using
+          our platform. If you ever need support, please feel free to email us
+          as support@loremgaming.com.
+        </p>
+      </div>
+    </div>
+  );
+}

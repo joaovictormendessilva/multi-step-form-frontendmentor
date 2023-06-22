@@ -22,9 +22,12 @@ interface IAppContext {
   monthlyOrYearly: string;
   setMonthlyOrYearly: React.Dispatch<React.SetStateAction<string>>;
   stepThreeFields: StepThreeFields[];
+  order: Order;
+  setOrder: React.Dispatch<React.SetStateAction<Order>>;
 }
 
 import React, { useState, createContext } from "react";
+import { Order } from "./interfaces/Order";
 
 export const AppContext = createContext<IAppContext | null>(null);
 
@@ -42,6 +45,8 @@ export function App() {
 
   const stepThreeFields: StepThreeFields[] = serviceData;
 
+  const [order, setOrder] = useState<Order>({} as Order);
+
   return (
     <div className={styles.app}>
       <AppContext.Provider
@@ -55,6 +60,8 @@ export function App() {
           monthlyOrYearly,
           setMonthlyOrYearly,
           stepThreeFields,
+          order,
+          setOrder,
         }}
       >
         <Container />

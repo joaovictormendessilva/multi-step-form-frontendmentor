@@ -1,0 +1,17 @@
+.thankYouStep {
+  margin: 20% auto;
+  height: 100%;
+}
+
+.thankYouStep .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  text-align: center;
+}
+
+.thankYouStep .content h2 {
+  font-size: 2rem;
+  color: var(--marine-blue);
+}

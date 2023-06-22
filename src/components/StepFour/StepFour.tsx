@@ -10,20 +10,24 @@ interface StepFourProps {
   setStepTwo: React.Dispatch<React.SetStateAction<boolean>>;
   setStepThree: React.Dispatch<React.SetStateAction<boolean>>;
   setStepFour: React.Dispatch<React.SetStateAction<boolean>>;
+  setThankYouStep: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // React
-import { useContext } from "react";
+import { useContext, FormEvent } from "react";
 import { AppContext } from "../../App";
+import { Order } from "../../interfaces/Order";
 
 export function StepFour({
   setStepTwo,
   setStepThree,
   setStepFour,
+  setThankYouStep,
 }: StepFourProps) {
   const appContext = useContext(AppContext);
   if (!appContext) return;
-  const { stepTwoFields, stepThreeFields } = appContext;
+  const { stepOneFields, stepTwoFields, stepThreeFields, setOrder } =
+    appContext;
 
   const resultSumServices: number =
     stepTwoFields.monthlyOrYearly === "Monthly"
@@ -48,6 +52,29 @@ export function StepFour({
   const handleBackToStepTwo = () => {
     setStepTwo(true);
     setStepFour(false);
+  };
+
+  const confirmOrder = async (e: FormEvent) => {
+    e.preventDefault();
+
+    const services = stepThreeFields
+      .filter((service) => service.checked === true)
+      .map((service) => service.label);
+
+    const newOder: Order = {
+      name: stepOneFields.name,
+      email: stepOneFields.email,
+      phone: stepOneFields.phone,
+      plan: stepTwoFields.plan,
+      planPrice: stepTwoFields.planPrice,
+      services: services,
+      monthlyOrYearly: stepTwoFields.monthlyOrYearly,
+      total: resultSumServices,
+    };
+
+    await setOrder(newOder);
+    setStepFour(false);
+    setThankYouStep(true);
   };
 
   return (
@@ -111,7 +138,12 @@ export function StepFour({
         </h4>
       </div>
 
-      <Buttons value="Confirm" show={true} onHandleBackPage={handleBackPage} />
+      <Buttons
+        value="Confirm"
+        show={true}
+        onHandleBackPage={handleBackPage}
+        onClick={confirmOrder}
+      />
     </div>
   );
 }
