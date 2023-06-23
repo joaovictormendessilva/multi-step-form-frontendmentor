@@ -50,8 +50,8 @@ export function StepTwo({
 
     const pricePlan =
       monthlyOrYearly === "Monthly"
-        ? cardData.find((card) => card.label === selectedPlan)?.monthlyPrice
-        : cardData.find((card) => card.label === selectedPlan)?.yearlyPrice;
+        ? cardData.find((card) => card.label === selectedPlan)!.monthlyPrice
+        : cardData.find((card) => card.label === selectedPlan)!.yearlyPrice;
 
     const values: StepTwoFields = {
       plan: selectedPlan,
