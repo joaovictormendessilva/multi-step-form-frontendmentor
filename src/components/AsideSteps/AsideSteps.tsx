@@ -33,7 +33,7 @@ export function AsideSteps({
               1
             </button>
           </div>
-          <div>
+          <div className={styles.stepLabels}>
             <p>STEP 1</p>
             <b>YOUR INFO</b>
           </div>
@@ -45,7 +45,7 @@ export function AsideSteps({
               2
             </button>
           </div>
-          <div>
+          <div className={styles.stepLabels}>
             <p>STEP 2</p>
             <b>SELECT PLAN</b>
           </div>
@@ -57,7 +57,7 @@ export function AsideSteps({
               3
             </button>
           </div>
-          <div>
+          <div className={styles.stepLabels}>
             <p>STEP 3</p>
             <b>ADD-ONS</b>
           </div>
@@ -69,7 +69,7 @@ export function AsideSteps({
               4
             </button>
           </div>
-          <div>
+          <div className={styles.stepLabels}>
             <p>STEP 4</p>
             <b>SUMMARY</b>
           </div>

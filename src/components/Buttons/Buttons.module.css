@@ -56,3 +56,23 @@
 .buttons .prevButton:active {
   color: var(--marine-blue);
 }
+
+@media (max-width: 685px) {
+  .buttons {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    background-color: var(--white);
+  }
+
+  .buttons .nextButton,
+  .buttons .prevButton,
+  .buttons .confirmButton {
+    position: initial;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+}

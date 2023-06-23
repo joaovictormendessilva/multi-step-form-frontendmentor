@@ -12,8 +12,7 @@ import { AppContext } from "../../App";
 export function ThankYouStep() {
   const appContext = useContext(AppContext);
   if (!appContext) return;
-  const { order, setShowLightBox } = appContext;
-  console.log(order);
+  const { setShowLightBox } = appContext;
 
   return (
     <div className={styles.thankYouStep}>

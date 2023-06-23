@@ -64,3 +64,9 @@
 .lightBox .lightBoxContent .totalContainer span {
   font-size: 0.875rem;
 }
+
+@media (max-width: 475px) {
+  .lightBox .lightBoxContent {
+    width: 80%;
+  }
+}

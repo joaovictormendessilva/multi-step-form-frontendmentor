@@ -17,10 +17,12 @@ export function Buttons({
 }: ButtonsProps) {
   return (
     <div className={styles.buttons}>
-      {show && (
+      {show ? (
         <button onClick={onHandleBackPage} className={styles.prevButton}>
           Go Back
         </button>
+      ) : (
+        <div></div>
       )}
 
       <button

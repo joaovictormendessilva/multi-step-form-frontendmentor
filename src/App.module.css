@@ -6,3 +6,9 @@
 
   background-color: #ebf3fb;
 }
+
+@media (max-width: 675px) {
+  .app {
+    height: auto;
+  }
+}

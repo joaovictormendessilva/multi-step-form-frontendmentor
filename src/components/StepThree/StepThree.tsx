@@ -1,7 +1,12 @@
+// React
 import { useContext, ChangeEvent } from "react";
+
+// Components
 import { Buttons } from "../Buttons/Buttons";
 import { Header } from "../Header/Header";
 import { Service } from "../Service/Service";
+
+// Context API
 import { AppContext } from "../../App";
 
 interface StepThreeProps {

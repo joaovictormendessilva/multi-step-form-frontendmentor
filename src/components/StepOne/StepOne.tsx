@@ -1,3 +1,6 @@
+// CSS
+import styles from "./StepOne.module.css";
+
 // Components
 import { FormControl } from "../FormControl/FormControl";
 import { Buttons } from "../Buttons/Buttons";
@@ -30,45 +33,6 @@ export function StepOne({ setStepOne, setStepTwo }: StepOneProps) {
       [e.target.name]: e.target.value,
     }));
   };
-
-  // const checkFieldsStepOne = (e: FormEvent) => {
-  //   e.preventDefault();
-
-  //   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  //   const isValidEmail = regex.test(stepOneFields.email);
-
-  //   stepOneFields.name === undefined || stepOneFields.name === ""
-  //     ? setEmptyName(true)
-  //     : setEmptyName(false);
-
-  //   // stepOneFields.email === undefined ||
-  //   // stepOneFields.email === "" ||
-  //   // !isValidEmail
-  //   //   ? setEmptyEmail(true)
-  //   //   : setEmptyEmail(false);
-
-  //   if (stepOneFields.email === undefined || stepOneFields.email === "") {
-  //     setEmptyEmail(true);
-  //     setInvalidEmail(false);
-  //   } else if (!isValidEmail) {
-  //     setInvalidEmail(true);
-  //   } else {
-  //     setEmptyEmail(false);
-  //     setInvalidEmail(false);
-  //   }
-
-  //   // isValidEmail ? setInvalidEmail(false) : setInvalidEmail(true);
-
-  //   stepOneFields.phone === undefined || stepOneFields.phone === ""
-  //     ? setEmptyPhone(true)
-  //     : setEmptyPhone(false);
-
-  //   !emptyName &&
-  //     !emptyEmail &&
-  //     !emptyPhone &&
-  //     !invalidEmail &&
-  //     setStepOne(false);
-  // };
 
   const checkFieldsStepOne = (e: FormEvent) => {
     e.preventDefault();
@@ -112,7 +76,7 @@ export function StepOne({ setStepOne, setStepTwo }: StepOneProps) {
   }, [stepOneFields.phone]);
 
   return (
-    <div>
+    <div className={styles.stepOne}>
       <Header
         title="Personal info"
         paragraph="Please provide your name, email address, and phone number."

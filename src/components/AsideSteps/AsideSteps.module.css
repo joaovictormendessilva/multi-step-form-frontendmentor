@@ -40,3 +40,27 @@
   background-color: var(--pastel-blue);
   border-color: var(--pastel-blue);
 }
+
+@media (max-width: 685px) {
+  .asideSteps {
+    width: 100%;
+    height: auto;
+    background-image: url(../../assets/bg-sidebar-mobile.svg);
+  }
+  .asideSteps ul {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .asideSteps ul li {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 415px) {
+  .stepLabels {
+    display: none;
+  }
+}

@@ -69,6 +69,8 @@ export function StepTwo({
     setStepTwo(false);
   };
 
+  console.log(window.innerWidth);
+
   return (
     <div className={styles.stepTwo}>
       <Header
