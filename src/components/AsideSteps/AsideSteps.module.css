@@ -34,11 +34,13 @@
   background-color: transparent;
   border: solid 1px var(--white);
   color: var(--white);
+  font-weight: bold;
 }
 
 .asideSteps .activeStep {
   background-color: var(--pastel-blue);
   border-color: var(--pastel-blue);
+  color: var(--marine-blue);
 }
 
 @media (max-width: 685px) {
