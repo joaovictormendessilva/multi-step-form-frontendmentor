@@ -2,14 +2,14 @@
 import styles from "./LightBox.module.css";
 
 // Interface
-import { Order } from "../../interfaces/Order";
+import { AppContext } from "../../contexts/AppContext";
+import { useContext } from "react";
 
-interface LightBoxProps {
-  order: Order;
-  setShowLightBox: React.Dispatch<React.SetStateAction<boolean>>;
-}
+export function LightBox() {
+  const appConetxt = useContext(AppContext);
+  if (!appConetxt) return;
+  const { order, setShowLightBox } = appConetxt;
 
-export function LightBox({ order, setShowLightBox }: LightBoxProps) {
   return (
     <div className={styles.lightBox}>
       <div className={styles.lightBoxContent}>
@@ -48,7 +48,7 @@ export function LightBox({ order, setShowLightBox }: LightBoxProps) {
           {order.services.length > 0 ? (
             <ul>
               {order.services.map((service) => (
-                <li>{service}</li>
+                <li key={service}>{service}</li>
               ))}
             </ul>
           ) : (

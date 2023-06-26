@@ -5,21 +5,16 @@ import styles from "./AsideSteps.module.css";
 import { useContext } from "react";
 
 // Context
-import { AppContext } from "../../App";
+import { AppContext } from "../../contexts/AppContext";
+
+// Interface
+import { StepInterface } from "../../interfaces/Step";
 
 interface AsideStepsProps {
-  stepOne: boolean;
-  stepTwo: boolean;
-  stepThree: boolean;
-  stepFour: boolean;
+  step: StepInterface;
 }
 
-export function AsideSteps({
-  stepOne,
-  stepTwo,
-  stepThree,
-  stepFour,
-}: AsideStepsProps) {
+export function AsideSteps({ step }: AsideStepsProps) {
   const appContext = useContext(AppContext);
   if (!appContext) return;
   const {} = appContext;
@@ -29,7 +24,7 @@ export function AsideSteps({
       <ul>
         <li>
           <div>
-            <button className={`${stepOne === true && styles.activeStep}`}>
+            <button className={`${step.stepOne === true && styles.activeStep}`}>
               1
             </button>
           </div>
@@ -41,7 +36,7 @@ export function AsideSteps({
 
         <li>
           <div>
-            <button className={`${stepTwo === true && styles.activeStep}`}>
+            <button className={`${step.stepTwo === true && styles.activeStep}`}>
               2
             </button>
           </div>
@@ -53,7 +48,9 @@ export function AsideSteps({
 
         <li>
           <div>
-            <button className={`${stepThree === true && styles.activeStep}`}>
+            <button
+              className={`${step.stepThree === true && styles.activeStep}`}
+            >
               3
             </button>
           </div>
@@ -65,7 +62,9 @@ export function AsideSteps({
 
         <li>
           <div>
-            <button className={`${stepFour === true && styles.activeStep}`}>
+            <button
+              className={`${step.stepFour === true && styles.activeStep}`}
+            >
               4
             </button>
           </div>

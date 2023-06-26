@@ -10,14 +10,16 @@ import { Header } from "../Header/Header";
 import { ChangeEvent, useContext, FormEvent, useState, useEffect } from "react";
 
 // Context
-import { AppContext } from "../../App";
+import { AppContext } from "../../contexts/AppContext";
+
+// Interface
+import { StepInterface } from "../../interfaces/Step";
 
 interface StepOneProps {
-  setStepOne: React.Dispatch<React.SetStateAction<boolean>>;
-  setStepTwo: React.Dispatch<React.SetStateAction<boolean>>;
+  setStep: React.Dispatch<React.SetStateAction<StepInterface>>;
 }
 
-export function StepOne({ setStepOne, setStepTwo }: StepOneProps) {
+export function StepOne({ setStep }: StepOneProps) {
   const [emptyName, setEmptyName] = useState<boolean>(false);
   const [emptyEmail, setEmptyEmail] = useState<boolean>(false);
   const [invalidEmail, setInvalidEmail] = useState<boolean>(false);
@@ -57,8 +59,11 @@ export function StepOne({ setStepOne, setStepTwo }: StepOneProps) {
     setEmptyPhone(isPhoneEmpty);
 
     if (!isNameEmpty && !isEmailEmpty && !isEmailInvalid && !isPhoneEmpty) {
-      setStepOne(false);
-      setStepTwo(true);
+      setStep((prev) => ({
+        ...prev,
+        stepOne: false,
+        stepTwo: true,
+      }));
     }
   };
 

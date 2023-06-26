@@ -7,19 +7,16 @@ import { Header } from "../Header/Header";
 import { Service } from "../Service/Service";
 
 // Context API
-import { AppContext } from "../../App";
+import { AppContext } from "../../contexts/AppContext";
+
+// Interface
+import { StepInterface } from "../../interfaces/Step";
 
 interface StepThreeProps {
-  setStepTwo: React.Dispatch<React.SetStateAction<boolean>>;
-  setStepThree: React.Dispatch<React.SetStateAction<boolean>>;
-  setStepFour: React.Dispatch<React.SetStateAction<boolean>>;
+  setStep: React.Dispatch<React.SetStateAction<StepInterface>>;
 }
 
-export function StepThree({
-  setStepTwo,
-  setStepThree,
-  setStepFour,
-}: StepThreeProps) {
+export function StepThree({ setStep }: StepThreeProps) {
   const appContext = useContext(AppContext);
   if (!appContext) return;
   const { monthlyOrYearly, stepThreeFields } = appContext;
@@ -33,13 +30,19 @@ export function StepThree({
   };
 
   const handleBackPage = () => {
-    setStepTwo(true);
-    setStepThree(false);
+    setStep((prev) => ({
+      ...prev,
+      stepTwo: true,
+      stepThree: false,
+    }));
   };
 
   const onHandleNextPage = () => {
-    setStepThree(false);
-    setStepFour(true);
+    setStep((prev) => ({
+      ...prev,
+      stepThree: false,
+      stepFour: true,
+    }));
   };
 
   return (

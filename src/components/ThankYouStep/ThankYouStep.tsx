@@ -7,7 +7,7 @@ import thankYouIcon from "../../assets/icon-thank-you.svg";
 import { useContext, FormEvent } from "react";
 
 // Context
-import { AppContext } from "../../App";
+import { AppContext } from "../../contexts/AppContext";
 
 export function ThankYouStep() {
   const appContext = useContext(AppContext);

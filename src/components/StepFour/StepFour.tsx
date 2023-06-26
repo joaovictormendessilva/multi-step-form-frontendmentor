@@ -6,24 +6,20 @@ import { Buttons } from "../Buttons/Buttons";
 import { Header } from "../Header/Header";
 
 // Interface
+import { Order } from "../../interfaces/Order";
+import { StepInterface } from "../../interfaces/Step";
+
 interface StepFourProps {
-  setStepTwo: React.Dispatch<React.SetStateAction<boolean>>;
-  setStepThree: React.Dispatch<React.SetStateAction<boolean>>;
-  setStepFour: React.Dispatch<React.SetStateAction<boolean>>;
-  setThankYouStep: React.Dispatch<React.SetStateAction<boolean>>;
+  setStep: React.Dispatch<React.SetStateAction<StepInterface>>;
 }
 
 // React
 import { useContext, FormEvent } from "react";
-import { AppContext } from "../../App";
-import { Order } from "../../interfaces/Order";
 
-export function StepFour({
-  setStepTwo,
-  setStepThree,
-  setStepFour,
-  setThankYouStep,
-}: StepFourProps) {
+// Context API
+import { AppContext } from "../../contexts/AppContext";
+
+export function StepFour({ setStep }: StepFourProps) {
   const appContext = useContext(AppContext);
   if (!appContext) return;
   const { stepOneFields, stepTwoFields, stepThreeFields, setOrder } =
@@ -45,16 +41,22 @@ export function StepFour({
   );
 
   const handleBackPage = () => {
-    setStepThree(true);
-    setStepFour(false);
+    setStep((prev) => ({
+      ...prev,
+      stepThree: true,
+      stepFour: false,
+    }));
   };
 
   const handleBackToStepTwo = () => {
-    setStepTwo(true);
-    setStepFour(false);
+    setStep((prev) => ({
+      ...prev,
+      stepTwo: true,
+      stepFour: false,
+    }));
   };
 
-  const confirmOrder = async (e: FormEvent) => {
+  const confirmOrder = (e: FormEvent) => {
     e.preventDefault();
 
     const services = stepThreeFields
@@ -72,9 +74,13 @@ export function StepFour({
       total: resultSumServices,
     };
 
-    await setOrder(newOder);
-    setStepFour(false);
-    setThankYouStep(true);
+    setOrder(newOder);
+
+    setStep((prev) => ({
+      ...prev,
+      stepFour: false,
+      thankYouStep: true,
+    }));
   };
 
   return (
