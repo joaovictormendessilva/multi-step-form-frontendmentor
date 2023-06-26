@@ -4,49 +4,78 @@ import styles from "./App.module.css";
 // Components
 import { Container } from "./components/Container/Container";
 
-// Pages
-import { LoginAndRegister } from "./pages/LoginAndRegister/LoginAndRegister";
+// Interfaces
+import { StepOneFields } from "./interfaces/StepOneFields";
+import { StepTwoFields } from "./interfaces/StepTwoFields";
+import { StepThreeFields } from "./interfaces/StepThreeFields";
 
-// Context API
-import { AppContextProvider } from "./contexts/AppContext";
+// Dados
+import { serviceData } from "./data/serviceData";
 
-import { useState, createContext, useEffect } from "react";
-
-interface IAuthContext {
-  isLogged: boolean;
-  setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
+interface IAppContext {
+  stepOneFields: StepOneFields;
+  setStepOneFields: React.Dispatch<React.SetStateAction<StepOneFields>>;
+  stepTwoFields: StepTwoFields;
+  setStepTwoFields: React.Dispatch<React.SetStateAction<StepTwoFields>>;
+  selectedPlan: string;
+  setSelectedPlan: React.Dispatch<React.SetStateAction<string>>;
+  monthlyOrYearly: string;
+  setMonthlyOrYearly: React.Dispatch<React.SetStateAction<string>>;
+  stepThreeFields: StepThreeFields[];
+  order: Order;
+  setOrder: React.Dispatch<React.SetStateAction<Order>>;
+  showLightBox: boolean;
+  setShowLightBox: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const AuthContext = createContext<IAuthContext | null>(null);
+import React, { useState, createContext } from "react";
+import { Order } from "./interfaces/Order";
+import { LightBox } from "./components/LightBox/LightBox";
+
+export const AppContext = createContext<IAppContext | null>(null);
 
 export function App() {
-  const [isLogged, setIsLogged] = useState<boolean>(false);
+  const [stepOneFields, setStepOneFields] = useState<StepOneFields>(
+    {} as StepOneFields
+  );
 
-  // Função para obter dados do localStorage, verificando a data de expiração
-  function getLocalStorageWithExpiration(key: string) {
-    const data = localStorage.getItem(key);
-    if (data) {
-      const parsedData = JSON.parse(data);
-      if (parsedData.expirationTime > new Date().getTime()) {
-        return setIsLogged(true);
-      } else {
-        localStorage.removeItem(key);
-        setIsLogged(false);
-      }
-    }
-    return null;
-  }
+  const [stepTwoFields, setStepTwoFields] = useState<StepTwoFields>(
+    {} as StepTwoFields
+  );
 
-  useEffect(() => {
-    getLocalStorageWithExpiration("logado");
-  });
+  const [selectedPlan, setSelectedPlan] = useState<string>("Arcade");
+  const [monthlyOrYearly, setMonthlyOrYearly] = useState<string>("Monthly");
+
+  const stepThreeFields: StepThreeFields[] = serviceData;
+
+  const [order, setOrder] = useState<Order>({} as Order);
+
+  const [showLightBox, setShowLightBox] = useState<boolean>(false);
 
   return (
     <div className={styles.app}>
-      <AuthContext.Provider value={{ isLogged, setIsLogged }}>
-        {!isLogged && <LoginAndRegister />}
-        <AppContextProvider>{isLogged && <Container />}</AppContextProvider>
-      </AuthContext.Provider>
+      <AppContext.Provider
+        value={{
+          stepOneFields,
+          setStepOneFields,
+          stepTwoFields,
+          setStepTwoFields,
+          selectedPlan,
+          setSelectedPlan,
+          monthlyOrYearly,
+          setMonthlyOrYearly,
+          stepThreeFields,
+          order,
+          setOrder,
+          showLightBox,
+          setShowLightBox,
+        }}
+      >
+        <Container />
+        {showLightBox && (
+          <LightBox order={order} setShowLightBox={setShowLightBox} />
+        )}
+      </AppContext.Provider>
     </div>
   );
 }

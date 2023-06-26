@@ -10,16 +10,21 @@ import { Card } from "../Card/Card";
 import { Buttons } from "../Buttons/Buttons";
 
 // Context
-import { AppContext } from "../../contexts/AppContext";
+import { AppContext } from "../../App";
 import { cardData } from "../../data/cardData";
 import { StepTwoFields } from "../../interfaces/StepTwoFields";
-import { StepInterface } from "../../interfaces/Step";
 
 interface StepTwoProps {
-  setStep: React.Dispatch<React.SetStateAction<StepInterface>>;
+  setStepOne: React.Dispatch<React.SetStateAction<boolean>>;
+  setStepTwo: React.Dispatch<React.SetStateAction<boolean>>;
+  setStepThree: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function StepTwo({ setStep }: StepTwoProps) {
+export function StepTwo({
+  setStepOne,
+  setStepTwo,
+  setStepThree,
+}: StepTwoProps) {
   const appContext = useContext(AppContext);
   if (!appContext) return;
   const {
@@ -55,21 +60,16 @@ export function StepTwo({ setStep }: StepTwoProps) {
     };
 
     setStepTwoFields(values);
-
-    setStep((prev) => ({
-      ...prev,
-      stepTwo: false,
-      stepThree: true,
-    }));
+    setStepTwo(false);
+    setStepThree(true);
   };
 
   const handleBackPage = () => {
-    setStep((prev) => ({
-      ...prev,
-      stepOne: true,
-      stepTwo: false,
-    }));
+    setStepOne(true);
+    setStepTwo(false);
   };
+
+  console.log(window.innerWidth);
 
   return (
     <div className={styles.stepTwo}>

@@ -5,16 +5,21 @@ import styles from "./AsideSteps.module.css";
 import { useContext } from "react";
 
 // Context
-import { AppContext } from "../../contexts/AppContext";
-
-// Interface
-import { StepInterface } from "../../interfaces/Step";
+import { AppContext } from "../../App";
 
 interface AsideStepsProps {
-  step: StepInterface;
+  stepOne: boolean;
+  stepTwo: boolean;
+  stepThree: boolean;
+  stepFour: boolean;
 }
 
-export function AsideSteps({ step }: AsideStepsProps) {
+export function AsideSteps({
+  stepOne,
+  stepTwo,
+  stepThree,
+  stepFour,
+}: AsideStepsProps) {
   const appContext = useContext(AppContext);
   if (!appContext) return;
   const {} = appContext;
@@ -24,7 +29,7 @@ export function AsideSteps({ step }: AsideStepsProps) {
       <ul>
         <li>
           <div>
-            <button className={`${step.stepOne === true && styles.activeStep}`}>
+            <button className={`${stepOne === true && styles.activeStep}`}>
               1
             </button>
           </div>
@@ -36,7 +41,7 @@ export function AsideSteps({ step }: AsideStepsProps) {
 
         <li>
           <div>
-            <button className={`${step.stepTwo === true && styles.activeStep}`}>
+            <button className={`${stepTwo === true && styles.activeStep}`}>
               2
             </button>
           </div>
@@ -48,9 +53,7 @@ export function AsideSteps({ step }: AsideStepsProps) {
 
         <li>
           <div>
-            <button
-              className={`${step.stepThree === true && styles.activeStep}`}
-            >
+            <button className={`${stepThree === true && styles.activeStep}`}>
               3
             </button>
           </div>
@@ -62,9 +65,7 @@ export function AsideSteps({ step }: AsideStepsProps) {
 
         <li>
           <div>
-            <button
-              className={`${step.stepFour === true && styles.activeStep}`}
-            >
+            <button className={`${stepFour === true && styles.activeStep}`}>
               4
             </button>
           </div>

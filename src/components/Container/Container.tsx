@@ -3,46 +3,62 @@ import styles from "./Container.module.css";
 import { StepOne } from "../StepOne/StepOne";
 import { AsideSteps } from "../AsideSteps/AsideSteps";
 
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { StepTwo } from "../StepTwo/StepTwo";
 import { StepThree } from "../StepThree/StepThree";
 import { StepFour } from "../StepFour/StepFour";
 import { ThankYouStep } from "../ThankYouStep/ThankYouStep";
-import { StepInterface } from "../../interfaces/Step";
-import { LightBox } from "../LightBox/LightBox";
-import { AppContext } from "../../contexts/AppContext";
 
 export function Container() {
-  const appContext = useContext(AppContext);
-  if (!appContext) return;
-  const { showLightBox } = appContext;
-
-  const [step, setStep] = useState<StepInterface>({
-    stepOne: true,
-    stepTwo: false,
-    stepThree: false,
-    stepFour: false,
-    thankYouStep: false,
-  });
+  const [stepOne, setStepOne] = useState<boolean>(true);
+  const [stepTwo, setStepTwo] = useState<boolean>(false);
+  const [stepThree, setStepThree] = useState<boolean>(false);
+  const [stepFour, setStepFour] = useState<boolean>(false);
+  const [thankYouStep, setThankYouStep] = useState<boolean>(false);
 
   return (
     <div className={styles.container}>
-      <AsideSteps step={step} />
+      <AsideSteps
+        stepOne={stepOne}
+        stepTwo={stepTwo}
+        stepThree={stepThree}
+        stepFour={stepFour}
+      />
 
       <main>
         <form>
-          {step.stepOne && <StepOne setStep={setStep} />}
+          {stepOne && (
+            <StepOne setStepOne={setStepOne} setStepTwo={setStepTwo} />
+          )}
 
-          {step.stepTwo && <StepTwo setStep={setStep} />}
+          {stepTwo && (
+            <StepTwo
+              setStepOne={setStepOne}
+              setStepTwo={setStepTwo}
+              setStepThree={setStepThree}
+            />
+          )}
 
-          {step.stepThree && <StepThree setStep={setStep} />}
+          {stepThree && (
+            <StepThree
+              setStepTwo={setStepTwo}
+              setStepThree={setStepThree}
+              setStepFour={setStepFour}
+            />
+          )}
 
-          {step.stepFour && <StepFour setStep={setStep} />}
+          {stepFour && (
+            <StepFour
+              setStepTwo={setStepTwo}
+              setStepThree={setStepThree}
+              setStepFour={setStepFour}
+              setThankYouStep={setThankYouStep}
+            />
+          )}
 
-          {step.thankYouStep && <ThankYouStep />}
+          {thankYouStep && <ThankYouStep />}
         </form>
       </main>
-      {showLightBox && <LightBox />}
     </div>
   );
 }

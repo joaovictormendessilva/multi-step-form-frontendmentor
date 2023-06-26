@@ -6,20 +6,24 @@ import { Buttons } from "../Buttons/Buttons";
 import { Header } from "../Header/Header";
 
 // Interface
-import { Order } from "../../interfaces/Order";
-import { StepInterface } from "../../interfaces/Step";
-
 interface StepFourProps {
-  setStep: React.Dispatch<React.SetStateAction<StepInterface>>;
+  setStepTwo: React.Dispatch<React.SetStateAction<boolean>>;
+  setStepThree: React.Dispatch<React.SetStateAction<boolean>>;
+  setStepFour: React.Dispatch<React.SetStateAction<boolean>>;
+  setThankYouStep: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // React
 import { useContext, FormEvent } from "react";
+import { AppContext } from "../../App";
+import { Order } from "../../interfaces/Order";
 
-// Context API
-import { AppContext } from "../../contexts/AppContext";
-
-export function StepFour({ setStep }: StepFourProps) {
+export function StepFour({
+  setStepTwo,
+  setStepThree,
+  setStepFour,
+  setThankYouStep,
+}: StepFourProps) {
   const appContext = useContext(AppContext);
   if (!appContext) return;
   const { stepOneFields, stepTwoFields, stepThreeFields, setOrder } =
@@ -41,22 +45,16 @@ export function StepFour({ setStep }: StepFourProps) {
   );
 
   const handleBackPage = () => {
-    setStep((prev) => ({
-      ...prev,
-      stepThree: true,
-      stepFour: false,
-    }));
+    setStepThree(true);
+    setStepFour(false);
   };
 
   const handleBackToStepTwo = () => {
-    setStep((prev) => ({
-      ...prev,
-      stepTwo: true,
-      stepFour: false,
-    }));
+    setStepTwo(true);
+    setStepFour(false);
   };
 
-  const confirmOrder = (e: FormEvent) => {
+  const confirmOrder = async (e: FormEvent) => {
     e.preventDefault();
 
     const services = stepThreeFields
@@ -74,13 +72,9 @@ export function StepFour({ setStep }: StepFourProps) {
       total: resultSumServices,
     };
 
-    setOrder(newOder);
-
-    setStep((prev) => ({
-      ...prev,
-      stepFour: false,
-      thankYouStep: true,
-    }));
+    await setOrder(newOder);
+    setStepFour(false);
+    setThankYouStep(true);
   };
 
   return (
